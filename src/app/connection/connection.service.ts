@@ -16,8 +16,12 @@ export class ConnectionService {
   constructor() {
     const client = this.createConnectionClient();
     client.connect().subscribe({
-      onComplete: socket => { this.socket = socket; },
-      onError: error => { throw new Error(error); }
+      onComplete: socket => {
+        this.socket = socket;
+        },
+      onError: error => {
+        throw new Error(error);
+      }
     });
   }
 
@@ -26,11 +30,23 @@ export class ConnectionService {
       throw new Error('Error: Connection have not been created');
     }
 
-    this.socket.requestStream(data, metadata)
+    this.socket.requestStream({
+      data,
+      metadata
+    })
       .subscribe({
-        onComplete: () => { console.log('complete'); },
-        onError: error => { throw new Error(error); },
-        onNext: payload => { console.log(payload.data); }
+        onComplete: () => {
+          console.log('complete');
+          },
+        onError: error => {
+          throw new Error(error);
+          },
+        onNext: payload => {
+          console.log(payload.data);
+        },
+        onSubscribe: subscription => {
+          subscription.request(2147483647);
+        }
       });
   }
 
