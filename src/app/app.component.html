@@ -1,1 +1,7 @@
-<button (click)="request()">Start</button>
+<button (click)="requestStream('linustorvalds')">Start</button>
+<select name="authors" #author (change)="requestStream(author.value)">
+  <option value="linustorvalds">Linus Torvalds</option>
+  <option value="robertmartin">Robert Martin</option>
+  <option value="martinfowler">Martin Fowler</option>
+</select>
+<app-message></app-message>

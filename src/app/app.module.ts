@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import {ConnectionModule} from './connection/connection.module';
+import {MessageModule} from './message/message.module';
 
 @NgModule({
   declarations: [
@@ -10,7 +11,8 @@ import {ConnectionModule} from './connection/connection.module';
   ],
   imports: [
     BrowserModule,
-    ConnectionModule
+    ConnectionModule,
+    MessageModule
   ],
   providers: [],
   bootstrap: [AppComponent]

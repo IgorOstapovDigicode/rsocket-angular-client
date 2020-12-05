@@ -7,14 +7,13 @@ import {ConnectionService} from './connection/connection.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'rsocket-angular-client';
 
   constructor(private connectionService: ConnectionService) {}
 
   // tslint:disable-next-line:typedef
-  request() {
+  requestStream(author) {
     const data = {
-      'author': 'linustorvalds'
+      'author': author
     };
     const metadata = String.fromCharCode('tweets.by.author'.length) + 'tweets.by.author';
     this.connectionService.requestStream(data, metadata);

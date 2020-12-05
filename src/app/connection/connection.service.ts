@@ -5,6 +5,7 @@ import {
   IdentitySerializer
 } from 'rsocket-core';
 import RSocketWebSocketClient from 'rsocket-websocket-client';
+import {BehaviorSubject} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,8 @@ import RSocketWebSocketClient from 'rsocket-websocket-client';
 export class ConnectionService {
 
   private socket;
+  private messageSubject = new BehaviorSubject({});
+  readonly message = this.messageSubject.asObservable();
 
   constructor() {
     const client = this.createConnectionClient();
@@ -43,6 +46,7 @@ export class ConnectionService {
           },
         onNext: payload => {
           console.log(payload.data);
+          this.messageSubject.next(payload.data);
         },
         onSubscribe: subscription => {
           subscription.request(2147483647);
