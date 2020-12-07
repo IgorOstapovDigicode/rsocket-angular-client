@@ -1,27 +1,42 @@
-# RsocketAngularClient
+## Install Java server with rsocket
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.2.
+Pull the project from here https://github.com/dsibilio/rsocket-demo
+and run it with docker
+**NOTE:** if there is some problem with docker, please, make changes in 
+<br/> *docker-compose.yaml*:
+<br/>version: '3.2'
+<br/>services:
+<br/>  rsocket-demo:
+<br/>    container_name: "rsocket-demo"
+<br/>   build: .
+<br/>    ports:
+<br/>      - "8080:8080"
+<br/>    depends_on:
+<br/>      - redis
+<br/>  redis:
+<br/>    container_name: "redis"
+<br/>    image: "redis:5.0.5"
+<br/>    ports:
+<br/>      - "6379:6379"
+<br/>networks:
+<br/>  f-net:
+<br/>    driver: "bridge" 
+<br/>
+<br/> and here *src/main/resources/application.yml*:
+<br/>
+<br/>local:
+<br/>  server:
+<br/>    port: 8080
+<br/>spring:
+<br/>  redis:
+<br/>    host: redis
+<br/>    port: 6379
+<br/>  rsocket:
+<br/>    server:
+<br/>      mapping-path: /tweetsocket
+<br/>      transport: websocket
+<br/>
 
-## Development server
+## Run the client
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
